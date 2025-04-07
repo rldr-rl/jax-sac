@@ -7,13 +7,13 @@ hydra:
 log_path: None
 alg: sac
 seed: 0
-max_steps: 1_000_000
-save_interval_steps: 100000
+max_steps: 5_000_000
+save_interval_steps: 500000
 log_interval_steps: 10000
 
 env:
   backend: gymnasium
-  env_id: Ant-v4
+  env_id: Ant-v5
   num_envs: 4
   utd_ratio: 1
   asynchronous: True

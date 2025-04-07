@@ -25,7 +25,7 @@ for gpu in gpus:
   tf.config.experimental.set_memory_growth(gpu, True)
 # jax.config.update("jax_disable_jit", True)
 
-@hydra.main(config_name='config', config_path='./sac_jax', version_base=None)
+@hydra.main(config_name='config', config_path='.', version_base=None)
 def train(cfg: dict):
   env_config = cfg['env']
   model_config = cfg['world_model']
@@ -204,6 +204,11 @@ def train(cfg: dict):
         for ienv, done_ienv in enumerate(done):
           if done_ienv:
             ep_count[ienv] += 1
+            tqdm.tqdm.write(
+                f"Episode {ep_count[ienv]} | "
+                f"Reward: {info['episode']['r'][ienv]:.2f} | "
+                f"Length: {info['episode']['l'][ienv]}"
+            )
         writer.scalar(f'episode/train_return',
                       train_returns[train_returns!=0].mean(), global_step)
         writer.scalar(f'episode/train_length',
